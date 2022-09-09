@@ -11,6 +11,16 @@ struct btnode
 void delete();
 void insert();
 void search(struct btnode *t);
+void inorder(struct btnode *t);
+void preorder(struct btnode *t);
+void postorder(struct btnode *t);
+
+int smallest(struct btnode *t);
+int largest(struct btnode *t);
+
+int flag = 1;
+
+
 
 void search(struct btnode *t)
 {
@@ -157,13 +167,55 @@ void delete ()
     printf("Element not found");
 }
 
+void inorder(struct btnode *t)
+{
+    if (root == NULL)
+    {
+        printf("Tree is empty");
+        return;
+    }
+    if (t->left != NULL)
+        inorder(t->left);
+    printf("%d ", t->data);
+    if (t->right != NULL)
+        inorder(t->right);
+}
+
+void preorder(struct btnode *t)
+{
+    if (root == NULL)
+    {
+        printf("Tree is empty");
+        return;
+    }
+    printf("%d ", t->data);
+    if (t->left != NULL)
+        preorder(t->left);
+    if (t->right != NULL)
+        preorder(t->right);
+}
+
+void postorder(struct btnode *t)
+{
+    if (root == NULL)
+    {
+        printf("Tree is empty");
+        return;
+    }
+    if (t->left != NULL)
+        postorder(t->left);
+    if (t->right != NULL)
+        postorder(t->right);
+    printf("%d ", t->data);
+}
+
 void main()
 {
     int ch;
     printf("BST Operations");
     while (1)
     {
-        printf("\n1. Insert\n2. Delete\n3. Search\n4. Exit");
+        printf("\n1. Insert\n2. Delete\n3. Inorder\n4. Preorder\n5. Postorder\n6. Exit");
         printf("\nEnter your choice: ");
         scanf("%d", &ch);
         switch (ch)
@@ -175,9 +227,15 @@ void main()
             delete ();
             break;
         case 3:
-            search(root);
+            inorder(root);
             break;
-        case 4:    
+        case 4:
+            preorder(root);
+            break;
+        case 5:
+            postorder(root);
+            break;
+        case 6:
             exit(0);
         default:
             printf("Invalid choice");
